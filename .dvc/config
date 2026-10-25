@@ -1,0 +1,4 @@
+[core]
+    remote = storage
+['remote "storage"']
+    url = C:\Users\ACER\OneDrive - Universidad de los Andes\dvc-remote-precios
