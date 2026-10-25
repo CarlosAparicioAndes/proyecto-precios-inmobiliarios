@@ -1,0 +1,5 @@
+outs:
+- md5: e650a6f5b773db2601c7cec046a8b78f
+  size: 254895
+  hash: md5
+  path: test_real_state.csv

@@ -1,0 +1,5 @@
+outs:
+- md5: efb68cff077094e0b392c885477f5187
+  size: 602484
+  hash: md5
+  path: train_real_state.csv
