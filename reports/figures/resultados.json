@@ -1,0 +1,170 @@
+{
+ "shape_train": [
+  4124,
+  30
+ ],
+ "shape_test": [
+  1767,
+  30
+ ],
+ "dups_train": 192,
+ "nulls": 0,
+ "price": {
+  "count": 4124.0,
+  "mean": 221688.0,
+  "std": 106353.0,
+  "min": 32743.0,
+  "25%": 145464.0,
+  "50%": 207964.0,
+  "75%": 291150.0,
+  "max": 585840.0
+ },
+ "skew": 0.4801552304092352,
+ "price_outliers": 25,
+ "size_outliers": 88,
+ "corr": {
+  "N_FacilitiesNearBy.PublicOffice.": -0.46,
+  "N_FacilitiesNearBy.ETC.": -0.44,
+  "N_FacilitiesNearBy.Total.": -0.41,
+  "N_SchoolNearBy.University.": -0.4,
+  "N_SchoolNearBy.Total.": -0.38,
+  "N_SchoolNearBy.High.": -0.37,
+  "N_SchoolNearBy.Elementary.": -0.35,
+  "N_FacilitiesNearBy.Hospital.": -0.26,
+  "N_SchoolNearBy.Middle.": -0.17,
+  "N_Parkinglot.Ground.": -0.13,
+  "MonthSold": 0.08,
+  "N_FacilitiesNearBy.Mall.": 0.08,
+  "N_APT": 0.15,
+  "N_elevators": 0.2,
+  "N_FacilitiesNearBy.Dpartmentstore.": 0.3,
+  "N_FacilitiesNearBy.Park.": 0.31,
+  "Floor": 0.34,
+  "N_manager": 0.35,
+  "YrSold": 0.37,
+  "YearBuilt": 0.44,
+  "N_Parkinglot.Basement.": 0.46,
+  "N_FacilitiesInApt": 0.5,
+  "Size.sqf.": 0.71
+ },
+ "median_by_station": {
+  "Chil-sung-market": 85840.0,
+  "Daegu": 93584.0,
+  "Myung-duk": 154867.0,
+  "Bangoge": 169026.0,
+  "no_subway_nearby": 207044.0,
+  "Kyungbuk_uni_hospital": 238938.0,
+  "Sin-nam": 247787.0,
+  "Banwoldang": 323008.0
+ },
+ "median_by_hall": {
+  "corridor": 78097.0,
+  "mixed": 154867.0,
+  "terraced": 262831.0
+ },
+ "n_by_station": {
+  "Kyungbuk_uni_hospital": 1176,
+  "Myung-duk": 1045,
+  "Bangoge": 525,
+  "Banwoldang": 514,
+  "Sin-nam": 459,
+  "no_subway_nearby": 270,
+  "Chil-sung-market": 75,
+  "Daegu": 60
+ },
+ "median_by_year": {
+  "2007": 168052.0,
+  "2008": 176991.0,
+  "2009": 173008.0,
+  "2010": 123451.0,
+  "2011": 180972.0,
+  "2012": 198230.0,
+  "2013": 230088.0,
+  "2014": 244690.0,
+  "2015": 292035.0,
+  "2016": 225663.0,
+  "2017": 314159.0
+ },
+ "subway_labels": {
+  "0-5min": 1946,
+  "5min~10min": 791,
+  "15min~20min": 658,
+  "10min~15min": 567,
+  "no_bus_stop_nearby": 162
+ },
+ "odd_rows": 162,
+ "cross_tab_odd": {
+  "false": {
+   "false": 3854,
+   "true": 0
+  },
+  "true": {
+   "false": 108,
+   "true": 162
+  }
+ },
+ "test_year_share": {
+  "2007": 0.021,
+  "2008": 0.065,
+  "2009": 0.092,
+  "2010": 0.107,
+  "2011": 0.101,
+  "2012": 0.081,
+  "2013": 0.097,
+  "2014": 0.114,
+  "2015": 0.098,
+  "2016": 0.118,
+  "2017": 0.107
+ },
+ "train_year_share": {
+  "2007": 0.019,
+  "2008": 0.067,
+  "2009": 0.091,
+  "2010": 0.108,
+  "2011": 0.093,
+  "2012": 0.076,
+  "2013": 0.105,
+  "2014": 0.114,
+  "2015": 0.096,
+  "2016": 0.132,
+  "2017": 0.1
+ },
+ "test_SalePrice_es_id": true,
+ "modelos_aleatorio": {
+  "Regresión lineal": {
+   "MAE": 25793.820006296104,
+   "RMSE": 35803.204525084606,
+   "R2": 0.8888703047909541
+  },
+  "Random Forest": {
+   "MAE": 10384.367975647594,
+   "RMSE": 16402.501560721765,
+   "R2": 0.9766758137942232
+  }
+ },
+ "importancias": {
+  "HallwayType_terraced": 0.403,
+  "Size.sqf.": 0.311,
+  "YrSold": 0.157,
+  "N_Parkinglot.Basement.": 0.027,
+  "N_Parkinglot.Ground.": 0.026,
+  "Floor": 0.013,
+  "YearBuilt": 0.012,
+  "MonthSold": 0.009,
+  "N_FacilitiesNearBy.ETC.": 0.007,
+  "N_FacilitiesInApt": 0.006,
+  "HallwayType_corridor": 0.003,
+  "HallwayType_mixed": 0.003
+ },
+ "temporal": {
+  "R2": 0.512561744426153,
+  "MAE": 67060.90621486257,
+  "bias_medio": -49865.17402077311,
+  "n_train": 2680,
+  "n_test": 1252
+ },
+ "temporal_lineal": {
+  "R2": -0.2399045844312142,
+  "MAE": 80911.64869449558
+ }
+}
