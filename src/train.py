@@ -14,6 +14,7 @@ Luego se reentrena con todos los datos y ese modelo es el que se guarda en MLflo
 """
 import argparse
 import os
+import sys
 
 import mlflow
 import mlflow.sklearn
@@ -27,6 +28,9 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from modelos import TendenciaMasArboles  # noqa: E402  (tendencia lineal + arboles, ver src/modelos.py)
 
 TARGET = "SalePrice"
 CORTE_TEMPORAL = 2014  # train: YrSold <= 2014 ; test: YrSold >= 2015
@@ -59,7 +63,16 @@ def modelos():
                                                 random_state=0, n_jobs=-1), False),
         "hist_gradient_boosting": (HistGradientBoostingRegressor(max_iter=300, learning_rate=0.05,
                                                                   random_state=0), False),
+        # tendencia lineal del mercado (YrSold) + boosting sobre el residuo; siempre en log
+        "tendencia_hgb": (HistGradientBoostingRegressor(max_iter=300, learning_rate=0.05,
+                                                         random_state=0), False),
     }
+
+
+def armar(nombre, X, estimador, escalar, log_precio):
+    if nombre == "tendencia_hgb":
+        return TendenciaMasArboles(armar_pipeline(X, estimador, escalar, False))
+    return armar_pipeline(X, estimador, escalar, log_precio)
 
 
 def armar_pipeline(X, estimador, escalar, log_precio=False):
@@ -113,6 +126,8 @@ def main():
         X = df[columnas(df, conjunto)]
         for nombre, (est, escalar) in modelos().items():
             for log_precio in [False, True]:
+                if nombre == "tendencia_hgb" and (not log_precio or "YrSold" not in X.columns):
+                    continue  # necesita YrSold y trabaja internamente en log
                 run_name = f"{nombre}|{conjunto}|{'log' if log_precio else 'precio'}"
                 with mlflow.start_run(run_name=run_name) as run:
                     mlflow.set_tags({"autor": args.autor, "datos": os.path.basename(args.data),
@@ -124,16 +139,16 @@ def main():
                            if isinstance(v, (int, float, str, bool, type(None)))},
                     })
                     m = {}
-                    pipe = armar_pipeline(X, est, escalar, log_precio)
+                    pipe = armar(nombre, X, est, escalar, log_precio)
                     p = ajustar_y_predecir(pipe, X.loc[idx_a], y.loc[idx_a], X.loc[idx_b])
                     m.update(metricas(y.loc[idx_b], p, "aleatorio"))
-                    pipe = armar_pipeline(X, est, escalar, log_precio)
+                    pipe = armar(nombre, X, est, escalar, log_precio)
                     p = ajustar_y_predecir(pipe, X[mask_t], y[mask_t], X[~mask_t])
                     m.update(metricas(y[~mask_t], p, "temporal"))
                     mlflow.log_metrics(m)
 
                     # modelo final: reentrenado con todos los datos (el que se serviria)
-                    final = armar_pipeline(X, est, escalar, log_precio).fit(X, y)
+                    final = armar(nombre, X, est, escalar, log_precio).fit(X, y)
                     if nombre == "random_forest":
                         interno = final.regressor_ if log_precio else final
                         nombres = interno.named_steps["pre"].get_feature_names_out()
@@ -143,7 +158,9 @@ def main():
                     firma = infer_signature(X.head(50), final.predict(X.head(50)))
                     mlflow.sklearn.log_model(final, artifact_path="modelo", signature=firma,
                                              input_example=X.head(3),
-                                             serialization_format="cloudpickle")
+                                             serialization_format="cloudpickle",
+                                             code_paths=[os.path.join(os.path.dirname(
+                                                 os.path.abspath(__file__)), "modelos.py")])
                     filas.append({"run_id": run.info.run_id, "run_name": run_name, **m})
                     print(f"{run_name:55s} MAE aleatorio {m['mae_aleatorio']:>9,.0f} | "
                           f"MAE temporal {m['mae_temporal']:>9,.0f} | R2 temporal {m['r2_temporal']:6.2f}")
