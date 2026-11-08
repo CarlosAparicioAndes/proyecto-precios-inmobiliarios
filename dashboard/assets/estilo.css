@@ -1,0 +1,17 @@
+body{margin:0;background:#EEF1F6;font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#1d2433}
+header{background:#1F3A5F;color:#fff;padding:14px 24px;font-size:20px;font-weight:600}
+header small{font-weight:400;font-size:13px;margin-left:10px;opacity:.8}
+.grid{display:grid;grid-template-columns:320px 1fr;gap:16px;padding:16px 24px}
+.right{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:#fff;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+h3{margin:0 0 10px;font-size:15px;color:#1F3A5F}
+.campo{margin-bottom:8px}.lbl{display:block;font-size:12px;color:#555;margin-bottom:2px}
+.inp{width:100%;box-sizing:border-box;padding:6px 8px;border:1px solid #c9ced8;border-radius:4px;font-size:14px}
+.btn{width:100%;margin-top:8px;padding:10px;background:#1F3A5F;color:#fff;border:0;border-radius:4px;font-size:14px;cursor:pointer}
+.btn:hover{background:#2c4f7c}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.kt{font-size:12px;color:#555}.kv{font-size:20px;font-weight:600;color:#1F3A5F;margin:2px 0}
+.kv.big{font-size:34px}.ks{font-size:12px;color:#666}
+.mid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mon{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.grid,.kpis,.mid,.mon{grid-template-columns:1fr}}

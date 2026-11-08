@@ -1,0 +1,123 @@
+{
+ "modelo": "tendencia_hgb|maqueta|log",
+ "familia": "tendencia_hgb",
+ "version": "v1",
+ "entrenado": "2026-11-08 17:49",
+ "crecimiento_anual_tendencia": 0.0745,
+ "metricas": {
+  "aleatoria_mae": 10568.582767245967,
+  "aleatoria_r2": 0.9784379216280659,
+  "aleatoria_mape": 0.0523942768409132,
+  "temporal_mae": 32924.123381197096,
+  "temporal_r2": 0.8491055532304272,
+  "temporal_mape": 0.1324492647845306,
+  "temporal_sesgo": -17135.049239789325
+ },
+ "intervalo_rel_aleatoria": [
+  -0.08038553092914873,
+  0.07808987488824605
+ ],
+ "intervalo_rel_temporal": [
+  -0.15826348984753058,
+  0.23044917830745099
+ ],
+ "deriva_psi": {
+  "Size.sqf.": 0.069,
+  "YearBuilt": 0.427,
+  "Floor": 0.016,
+  "N_Parkinglot.Basement.": 0.205,
+  "YrSold": 5.463,
+  "HallwayType": 0.113,
+  "SubwayStation": 0.081,
+  "AptManageType": 0.005
+ },
+ "entradas": {
+  "num_rango": {
+   "Size.sqf.": [
+    135.0,
+    2337.0
+   ],
+   "YearBuilt": [
+    1978.0,
+    2015.0
+   ],
+   "Floor": [
+    1.0,
+    43.0
+   ],
+   "N_Parkinglot.Basement.": [
+    0.0,
+    1321.0
+   ],
+   "YrSold": [
+    2007.0,
+    2017.0
+   ]
+  },
+  "categorias": {
+   "HallwayType": [
+    "corridor",
+    "mixed",
+    "terraced"
+   ],
+   "SubwayStation": [
+    "Bangoge",
+    "Banwoldang",
+    "Chil-sung-market",
+    "Daegu",
+    "Kyungbuk_uni_hospital",
+    "Myung-duk",
+    "Sin-nam",
+    "no_subway_nearby"
+   ],
+   "AptManageType": [
+    "management_in_trust",
+    "self_management"
+   ]
+  }
+ },
+ "moda": {
+  "Size.sqf.": 910.0,
+  "YearBuilt": 2006.0,
+  "Floor": 11.0,
+  "N_Parkinglot.Basement.": 536.0,
+  "YrSold": 2013.0,
+  "HallwayType": "terraced",
+  "SubwayStation": "Kyungbuk_uni_hospital",
+  "AptManageType": "management_in_trust"
+ },
+ "mediana_estacion": {
+  "Bangoge": 175221.0,
+  "Banwoldang": 326548.0,
+  "Chil-sung-market": 85840.0,
+  "Daegu": 93584.0,
+  "Kyungbuk_uni_hospital": 247787.0,
+  "Myung-duk": 154867.0,
+  "Sin-nam": 247787.0,
+  "no_subway_nearby": 207079.0
+ },
+ "n_estacion": {
+  "Kyungbuk_uni_hospital": 1072,
+  "Myung-duk": 1043,
+  "Banwoldang": 504,
+  "Bangoge": 460,
+  "Sin-nam": 457,
+  "no_subway_nearby": 261,
+  "Chil-sung-market": 75,
+  "Daegu": 60
+ },
+ "mediana_anio": {
+  "2007": 168052.0,
+  "2008": 176106.0,
+  "2009": 169911.0,
+  "2010": 141592.0,
+  "2011": 180972.0,
+  "2012": 198230.0,
+  "2013": 229212.0,
+  "2014": 244468.0,
+  "2015": 292035.0,
+  "2016": 265486.0,
+  "2017": 314159.0
+ },
+ "filas_entrenamiento": 3932
+}

@@ -9,7 +9,10 @@ Solución MLOps para estimar el precio de venta de apartamentos: modelos supervi
 - `src/eda.py`: exploración de datos y modelo base de referencia.
 - `src/clean.py`: limpieza de datos (duplicados, etiqueta inconsistente y variable `AptAge`).
 - `notebooks/02_eda_precio_por_sqf.ipynb`: EDA complementario de precio por pie cuadrado por estación de metro, tiempo al metro y tipo de pasillo.
-- `reports/figures/`: gráficas generadas y maqueta del tablero.
+- `src/modelos.py`: modelo `TendenciaMasArboles` (tendencia lineal del mercado + boosting sobre el residuo).
+- `src/preparar_tablero.py`: entrena el modelo elegido y genera `models/modelo.joblib` y `models/metadata.json`.
+- `dashboard/`: tablero en Dash según la maqueta (`app.py` y estilos en `assets/`).
+- `reports/figures/`: gráficas generadas, maqueta y captura del tablero (`tablero.png`).
 
 ## Cómo reproducir
 ```bash
@@ -35,6 +38,15 @@ Los datos viven en una carpeta compartida de OneDrive (`dvc-remote-precios`), us
    python src/eda.py data/raw/train_real_state.csv data/raw/test_real_state.csv reports/figures
    ```
 4. Para el EDA complementario, abre `notebooks/02_eda_precio_por_sqf.ipynb` y ejecuta todas las celdas.
+
+### Tablero (Entrega 2)
+```bash
+python src/preparar_tablero.py   # entrena el modelo elegido y genera models/ (unos segundos)
+python dashboard/app.py          # tablero en http://localhost:8050
+```
+El tablero usa el modelo `tendencia_hgb | maqueta | log` (menor MAE en la validación temporal) con las
+8 entradas de la maqueta. Por ahora carga el modelo localmente; si se define `API_URL`, envía las
+entradas a la API (Entrega 3). Los experimentos con MLflow están en `docs/entrenamiento_mlflow.md`.
 
 ### Flujo de trabajo del equipo
 - Código: ramas por integrante y Pull Requests hacia `main`; commits pequeños con mensajes claros.
