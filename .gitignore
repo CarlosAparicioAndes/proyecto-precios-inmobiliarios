@@ -4,3 +4,7 @@ __pycache__/
 .ipynb_checkpoints/
 reports/figures/fig*.png
 reports/figures/resultados.json
+
+mlflow.db
+mlruns/
+mlartifacts/
