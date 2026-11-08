@@ -47,11 +47,11 @@ Los datos viven en una carpeta compartida de OneDrive (`dvc-remote-precios`), us
 |---|---|
 | Carlos Aparicio Rojas | [CarlosAparicioAndes](https://github.com/CarlosAparicioAndes) |
 | Libardo Navas Quiroga | [libardo-navas-eng](https://github.com/libardo-navas-eng) |
-| Gino Marcelo Ulloa Chacón | [COMPLETAR usuario] |
+| Gino Marcelo Ulloa Chacón | [gulloa05](https://github.com/gulloa05) |
 
 ## Notas sobre los datos
 - Ventas de apartamentos en Daegu (Corea del Sur) entre 2007 y 2017; las estaciones de metro del dataset pertenecen a la red de esa ciudad.
 - `train_real_state.csv`: 4.124 filas y 30 columnas, sin valores nulos y con 192 filas duplicadas exactas, que se eliminan en la limpieza.
 - `Size.sqf.` está en pies cuadrados.
 - La columna `SalePrice` del archivo de test es un identificador, no el precio real; la evaluación usa particiones del archivo de entrenamiento.
-- Fuente y unidad del precio: [COMPLETAR].
+- Fuente: https://github.com/aikosulaiman/daegu-apartment-project. La unidad monetaria del precio está por confirmar.
