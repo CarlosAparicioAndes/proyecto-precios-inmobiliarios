@@ -6,3 +6,8 @@ dvc
 dvc-s3
 
 mlflow==3.17.1
+
+# tablero (Entrega 2)
+dash
+plotly
+joblib
