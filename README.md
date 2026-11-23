@@ -11,7 +11,10 @@ Solución MLOps para estimar el precio de venta de apartamentos: modelos supervi
 - `notebooks/02_eda_precio_por_sqf.ipynb`: EDA complementario de precio por pie cuadrado por estación de metro, tiempo al metro y tipo de pasillo.
 - `src/modelos.py`: modelo `TendenciaMasArboles` (tendencia lineal del mercado + boosting sobre el residuo).
 - `src/preparar_tablero.py`: entrena el modelo elegido y genera `models/modelo.joblib` y `models/metadata.json`.
-- `dashboard/`: tablero en Dash según la maqueta (`app.py` y estilos en `assets/`).
+- `dashboard/`: tablero en Dash según la maqueta (`app.py`, estilos en `assets/`, `Dockerfile`).
+- `api/`: API en FastAPI que sirve el modelo (`app/main.py`, `requirements.txt`, `Dockerfile`).
+- `docker-compose.yml`: levanta la API y el tablero juntos.
+- `tests/`: pruebas del modelo y de la API (`pytest`).
 - `reports/figures/`: gráficas generadas, maqueta y captura del tablero (`tablero.png`).
 
 ## Cómo reproducir
@@ -45,8 +48,32 @@ python src/preparar_tablero.py   # entrena el modelo elegido y genera models/ (u
 python dashboard/app.py          # tablero en http://localhost:8050
 ```
 El tablero usa el modelo `tendencia_hgb | maqueta | log` (menor MAE en la validación temporal) con las
-8 entradas de la maqueta. Por ahora carga el modelo localmente; si se define `API_URL`, envía las
+8 entradas de la maqueta. Sin `API_URL` carga el modelo localmente; con `API_URL` envía las
 entradas a la API (Entrega 3). Los experimentos con MLflow están en `docs/entrenamiento_mlflow.md`.
+
+### API y despliegue con Docker (Entrega 3)
+La API sirve el modelo registrado en MLflow como versión 2 de `precio-apartamentos-daegu`
+(tendencia + boosting, 8 campos del formulario). El tablero le pide los precios con `API_URL`.
+
+| Endpoint | Uso |
+|---|---|
+| `GET /api/v1/health` | estado de la API y versión del modelo |
+| `GET /api/v1/modelo` | métricas y datos del entrenamiento (monitoreo) |
+| `POST /api/v1/predict` | `{"inputs": [ {8 campos} ]}` devuelve `{"predictions": [precio]}` |
+
+Con Docker (desde la raíz del repo, con `models/` generado):
+```bash
+docker compose up --build        # API en :8001 (docs en /docs) y tablero en :8050
+```
+O por separado, como en los Talleres 8 y 9:
+```bash
+docker build -f api/Dockerfile -t precios-api .
+docker run -p 8001:8001 -e PORT=8001 precios-api
+docker build -f dashboard/Dockerfile -t precios-tablero .
+docker run -p 8050:8050 -e PORT=8050 -e API_URL=http://<IP_DE_LA_API>:8001/api/v1/predict precios-tablero
+```
+Sin Docker: `pip install -r api/requirements.txt` y `uvicorn app.main:app --app-dir api --port 8001`.
+Pruebas: `python -m pytest tests -v`.
 
 ### Flujo de trabajo del equipo
 - Código: ramas por integrante y Pull Requests hacia `main`; commits pequeños con mensajes claros.
