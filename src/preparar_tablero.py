@@ -77,7 +77,7 @@ def main():
     deriva.update({c: psi_cat(df.loc[t, c], df.loc[~t, c]) for c in CAT})
 
     meta = {
-        "modelo": "tendencia_hgb|maqueta|log", "familia": "tendencia_hgb", "version": "v1",
+        "modelo": "tendencia_hgb|maqueta|log", "familia": "tendencia_hgb", "version": "v2",
         "entrenado": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
         "crecimiento_anual_tendencia": round(final.crecimiento_anual, 4),
         "metricas": {

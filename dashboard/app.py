@@ -11,9 +11,9 @@ Sigue la maqueta de la Entrega 1 (reports/figures/maqueta.png):
   3. Precio mediano por anio de venta.
   4. Monitoreo del modelo (error en validacion temporal y deriva de datos).
 
-Inferencia: por ahora el tablero carga el modelo localmente. Si se define la variable de entorno
-API_URL (p. ej. http://<ip>:8001/api/v1/predict), envia las entradas a la API (Entrega 3),
-con el formato del Taller 6: {"inputs": [...]} -> {"predictions": [...]}.
+Inferencia: si se define la variable de entorno API_URL (p. ej. http://<ip>:8001/api/v1/predict),
+el tablero envia las entradas a la API (Entrega 3), con el formato {"inputs": [...]} ->
+{"predictions": [...]}. Sin API_URL carga el modelo localmente (modo de desarrollo).
 """
 import json, os, sys
 from pathlib import Path
@@ -25,9 +25,12 @@ from dash import Dash, Input, Output, State, dcc, html
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "src"))  # para cargar TendenciaMasArboles
-MODELO = joblib.load(RAIZ / "models" / "modelo.joblib")
-META = json.load(open(RAIZ / "models" / "metadata.json", encoding="utf-8"))
+# Carpeta de los archivos del modelo: variable MODEL_DIR (Docker) o models/ en la raiz del repo
+MODEL_DIR = Path(os.getenv("MODEL_DIR", RAIZ / "models"))
+META = json.load(open(MODEL_DIR / "metadata.json", encoding="utf-8"))
 API_URL = os.getenv("API_URL")
+# Con API_URL el tablero no necesita el modelo: pide los precios a la API
+MODELO = None if API_URL else joblib.load(MODEL_DIR / "modelo.joblib")
 
 NOMBRES = {"Size.sqf.": "Tamaño", "YearBuilt": "Año de construcción", "Floor": "Piso",
            "N_Parkinglot.Basement.": "Parqueaderos sótano", "YrSold": "Año de venta",

@@ -1,7 +1,7 @@
 {
  "modelo": "tendencia_hgb|maqueta|log",
  "familia": "tendencia_hgb",
- "version": "v1",
+ "version": "v2",
  "entrenado": "2026-11-08 17:49",
  "crecimiento_anual_tendencia": 0.0745,
  "metricas": {
