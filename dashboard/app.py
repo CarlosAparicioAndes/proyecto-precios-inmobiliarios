@@ -18,7 +18,6 @@ el tablero envia las entradas a la API (Entrega 3), con el formato {"inputs": [.
 import json, os, sys
 from pathlib import Path
 
-import joblib
 import pandas as pd
 import plotly.graph_objects as go
 from dash import Dash, Input, Output, State, dcc, html
@@ -30,7 +29,11 @@ MODEL_DIR = Path(os.getenv("MODEL_DIR", RAIZ / "models"))
 META = json.load(open(MODEL_DIR / "metadata.json", encoding="utf-8"))
 API_URL = os.getenv("API_URL")
 # Con API_URL el tablero no necesita el modelo: pide los precios a la API
-MODELO = None if API_URL else joblib.load(MODEL_DIR / "modelo.joblib")
+if API_URL:
+    MODELO = None
+else:
+    import joblib  # solo se necesita en modo local (sin API)
+    MODELO = joblib.load(MODEL_DIR / "modelo.joblib")
 
 NOMBRES = {"Size.sqf.": "Tamaño", "YearBuilt": "Año de construcción", "Floor": "Piso",
            "N_Parkinglot.Basement.": "Parqueaderos sótano", "YrSold": "Año de venta",
